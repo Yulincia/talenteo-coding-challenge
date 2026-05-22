@@ -4,7 +4,7 @@ import {
   IconInnerShadowTop,
   IconSearch,
   IconSettings,
-  IconUsers
+  IconUsers,
 } from "@tabler/icons-react"
 import * as React from "react"
 
@@ -30,12 +30,12 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/",
       icon: IconDashboard,
     },
     {
       title: "Employees",
-      url: "#",
+      url: "employees",
       icon: IconUsers,
     },
 
