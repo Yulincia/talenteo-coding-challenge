@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import AppLayout from "./layouts/app-layout";
 import { DocumentsPage } from "@/pages/documents.page"
 import { EmployeesPage } from "@/pages/employees.page";
+import { Toaster } from "@/components/ui/sonner";
 
 function App() {
   const queryClient = new QueryClient();
@@ -17,6 +18,7 @@ function App() {
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <Toaster />
       </BrowserRouter>
     </QueryClientProvider>
   )

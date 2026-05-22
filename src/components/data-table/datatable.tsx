@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -54,6 +55,7 @@ import type { IQuery } from "@/types/api.types";
 import { DataTablePagination } from "./datatable-pagination";
 import { DataTableViewOptions } from "./datatable-view-options";
 import { DraggableRow } from "./draggable-row";
+import { Skeleton } from "../ui/skeleton";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -63,6 +65,7 @@ interface DataTableProps<TData, TValue> {
   limit?: number
   currentPage?: number
   updateQuery?: (query: IQuery | ((prevState: IQuery) => IQuery)) => void
+  isLoading?: boolean
 }
 
 export function DataTable<TData, TValue>({
@@ -73,6 +76,7 @@ export function DataTable<TData, TValue>({
   limit,
   currentPage,
   updateQuery,
+  isLoading = false,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = useState(initialData);
 
@@ -185,6 +189,7 @@ export function DataTable<TData, TValue>({
         }
         <DataTableViewOptions table={table} />
       </div>
+
       <div className='overflow-hidden rounded-lg border'>
         <DndContext
           collisionDetection={closestCenter}
@@ -221,14 +226,26 @@ export function DataTable<TData, TValue>({
                   ))}
                 </SortableContext>
               ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className='h-24 text-center'
-                  >
+                isLoading ?
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className='space-y-3'
+                    >
+                      <Skeleton className="h-10 w-full" />
+                      <Skeleton className="h-10 w-full" />
+                      <Skeleton className="h-10 w-full" />
+                    </TableCell>
+                  </TableRow>
+                  :
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className='h-24 text-center'
+                    >
                     No results.
-                  </TableCell>
-                </TableRow>
+                    </TableCell>
+                  </TableRow>
               )}
             </TableBody>
           </Table>
